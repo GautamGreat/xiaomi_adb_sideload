@@ -2,3 +2,4 @@
 *.zip
 .vscode
 main.dSYM
+.DS_Store

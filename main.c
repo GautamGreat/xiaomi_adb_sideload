@@ -461,12 +461,14 @@ int generate_firmware_sign(char* signfile) {
     if (status_code == 200) {
         curl_free(json_post_data);
         json_post_data = curl_easy_unescape(curl, req.buffer, req.len, &len);
-        b64_len = b64_decodedLength(len);
-        b64_len = b64_len - (16 - (b64_len % 16));
-        b64_decode((uint8_t *)json_post_data, len,(uint8_t*)post_buf);
+        
+        memset(post_buf, 0, 4096);
+        b64_len = b64_decode((uint8_t *)json_post_data, len,(uint8_t*)post_buf);
         AES_init_ctx_iv(&ctx, key, iv);
         AES_CBC_decrypt_buffer(&ctx, (uint8_t *)post_buf, b64_len);
-        post_buf[b64_len + 1] = 0;
+
+        // unpad
+        post_buf[b64_len - post_buf[b64_len - 1]] = 0;
 
         json_t mem[64];
         json_t const* json = json_create(post_buf, mem, sizeof mem / sizeof *mem);
@@ -565,7 +567,6 @@ int start_sideload(const char *sideload_file) {
 }
 
 int main(int argc, char** argv) {
-
     int opt;
     bool format_data = false;
     bool generate_sign = false;
