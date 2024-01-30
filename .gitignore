@@ -1,0 +1,4 @@
+*.o
+*.zip
+.vscode
+main.dSYM
