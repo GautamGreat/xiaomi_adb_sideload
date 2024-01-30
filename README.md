@@ -5,7 +5,7 @@ PS: This is my first time coding in C, My C skill sucks, so please don't judge m
 Normal uses:
 ./xiaomi_adb <cmd> <arg>
 
-Termux uses
+Termux uses:
 termux-usb -E -e "./xiaomi_adb <cmd> <arg>" -r <usb_device_path>
 
 How to flash sideload OTA
