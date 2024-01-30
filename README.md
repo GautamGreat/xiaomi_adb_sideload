@@ -14,5 +14,6 @@ How to flash sideload OTA
 
 While generating sign phone will reboot and you'll need to reboot into Mi-Assistant mode again, that is neccessary because in some cases you can't sideload in device unless you have a press connection in sideload.
 
+make
 
 
